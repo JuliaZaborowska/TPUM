@@ -1,0 +1,13 @@
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\bin\Debug\netcoreapp3.1\Server_client.exe
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\bin\Debug\netcoreapp3.1\Server_client.deps.json
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\bin\Debug\netcoreapp3.1\Server_client.runtimeconfig.json
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\bin\Debug\netcoreapp3.1\Server_client.runtimeconfig.dev.json
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\bin\Debug\netcoreapp3.1\Server_client.dll
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\bin\Debug\netcoreapp3.1\Server_client.pdb
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\obj\Debug\netcoreapp3.1\Server_client.csprojAssemblyReference.cache
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\obj\Debug\netcoreapp3.1\Server_client.csproj.CoreCompileInputs.cache
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\obj\Debug\netcoreapp3.1\Server_client.AssemblyInfoInputs.cache
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\obj\Debug\netcoreapp3.1\Server_client.AssemblyInfo.cs
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\obj\Debug\netcoreapp3.1\Server_client.dll
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\obj\Debug\netcoreapp3.1\Server_client.pdb
+C:\Users\Jakub\Desktop\Desktop\Studia\Semestr_1\Programowanie_urządzeń_mobilnych\Git_repository\TPUM\Server_client\Server_client\obj\Debug\netcoreapp3.1\Server_client.genruntimeconfig.cache
