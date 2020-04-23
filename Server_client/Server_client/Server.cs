@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 
 namespace Server_client
 {
     class Server
     {
         private static TcpListener server;
+        private static TcpClient client;
         public static void Main()
         {
-            TcpClient client = server.AcceptTcpClient();
-
-            Console.WriteLine("A client has connected.");
-
+            Server.EstablishClientConnection();
             NetworkStream stream = client.GetStream();
 
             while (true)
@@ -26,13 +25,13 @@ namespace Server_client
             }
         }
 
-        public void establishClientConnection()
+        public static void EstablishClientConnection()
         {
             server = new TcpListener(IPAddress.Parse("127.0.0.1"), 80);
-
             server.Start();
-
             Console.WriteLine("Server has started on localhost 127.0.0.1:80. \nWaiting for connection...");
+            client = server.AcceptTcpClient();
+            Console.WriteLine("A client has connected.");
         }
     }
 }

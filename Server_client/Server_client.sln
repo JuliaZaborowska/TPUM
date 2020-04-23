@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server_client", "Server_client\Server_client.csproj", "{36B578E3-BC9A-4A63-B0B6-494ED2C662DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BussinesLogic", "Server_client\BussinesLogic.csproj", "{36B578E3-BC9A-4A63-B0B6-494ED2C662DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{703A742B-6ED8-4BA2-B46C-25F39C97F69D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "ConsoleApp1\DataLayer.csproj", "{703A742B-6ED8-4BA2-B46C-25F39C97F69D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterface\UserInterface.csproj", "{E45CA25D-0762-4ACC-BB80-67428AF90861}"
 EndProject
