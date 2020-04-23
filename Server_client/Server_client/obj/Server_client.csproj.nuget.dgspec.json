@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj": {}
+    "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj": {
+    "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj",
+        "projectUniqueName": "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj",
         "projectName": "Server_client",
-        "projectPath": "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj",
+        "projectPath": "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj",
         "packagesPath": "C:\\Users\\Jakub\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\obj\\",
+        "outputPath": "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Jakub\\AppData\\Roaming\\NuGet\\NuGet.Config",

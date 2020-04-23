@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj",
-      "projectName": "Server_client",
-      "projectPath": "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\Server_client.csproj",
+      "projectUniqueName": "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\BussinesLogic.csproj",
+      "projectName": "BussinesLogic",
+      "projectPath": "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\BussinesLogic.csproj",
       "packagesPath": "C:\\Users\\Jakub\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jakub\\Desktop\\Desktop\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\obj\\",
+      "outputPath": "D:\\Studia\\Semestr_1\\Programowanie_urządzeń_mobilnych\\Git_repository\\TPUM\\Server_client\\Server_client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Jakub\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -6,13 +6,9 @@ namespace Server_client
 {
     class Server
     {
+        private static TcpListener server;
         public static void Main()
         {
-            TcpListener server = new TcpListener(IPAddress.Parse("127.0.0.1"), 80);
-
-            server.Start();
-            Console.WriteLine("Server has started on localhost 127.0.0.1:80. \nWaiting for connection...");
-
             TcpClient client = server.AcceptTcpClient();
 
             Console.WriteLine("A client has connected.");
@@ -28,6 +24,15 @@ namespace Server_client
                     stream.Read(bytes, 0, bytes.Length);
                 }
             }
+        }
+
+        public void establishClientConnection()
+        {
+            server = new TcpListener(IPAddress.Parse("127.0.0.1"), 80);
+
+            server.Start();
+
+            Console.WriteLine("Server has started on localhost 127.0.0.1:80. \nWaiting for connection...");
         }
     }
 }
