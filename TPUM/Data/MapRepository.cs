@@ -24,7 +24,7 @@ namespace WindowsFormsApp1.Data
                     break;
             }
             MapList.Add(map); //add it to repository
-            Console.WriteLine("Created new instance of {0}", f.Name);
+            Console.WriteLine("Created new instance of {0}", map.Name);
             return map;
         }
         public IMap GetField(FieldType type)
