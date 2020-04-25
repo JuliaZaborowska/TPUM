@@ -8,9 +8,9 @@ namespace WindowsFormsApp1.Data
 {
     class Mob : CharacterBaseClass
     {
-        public Mob(string characterName, int stamina, int endurance, int strength)
+        public Mob(int stamina, int endurance, int strength)
         {
-            this.CharacterName = characterName;
+            CharacterName = "Mob";
             this.Stamina = stamina;
             this.Endurance = endurance;
             this.Strength = strength;

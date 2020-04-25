@@ -8,9 +8,9 @@ namespace WindowsFormsApp1.Data
 {
     class Human : CharacterBaseClass
     {
-        public Human(string characterName, int stamina, int endurance, int strength)
+        public Human(int stamina, int endurance, int strength)
         {
-            this.CharacterName = characterName;
+            CharacterName = "Human";
             this.Stamina = stamina;
             this.Endurance = endurance;
             this.Strength = strength;

@@ -47,8 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CharacterBaseClass.cs" />
+    <Compile Include="Data\Grass.cs" />
     <Compile Include="Data\Human.cs" />
+    <Compile Include="Data\IMap.cs" />
+    <Compile Include="Data\MapRepository.cs" />
     <Compile Include="Data\Mob.cs" />
+    <Compile Include="Data\Rock.cs" />
+    <Compile Include="Data\StartingPoint.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
