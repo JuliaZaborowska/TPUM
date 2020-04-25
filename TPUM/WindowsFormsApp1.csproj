@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47E84875-025B-448C-86D2-38A187E5BB47}</ProjectGuid>
+    <ProjectGuid>{ACD4D208-CD74-4DB0-9FDF-1B0925003F42}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TPUM</RootNamespace>
-    <AssemblyName>TPUM</AssemblyName>
+    <RootNamespace>WindowsFormsApp1</RootNamespace>
+    <AssemblyName>WindowsFormsApp1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CharacterBaseClass.cs" />
+    <Compile Include="Data\Human.cs" />
+    <Compile Include="Data\Mob.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +80,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Views\" />
   </ItemGroup>

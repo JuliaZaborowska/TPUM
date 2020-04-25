@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPUM.Properties
+namespace WindowsFormsApp1.Properties
 {
 
 

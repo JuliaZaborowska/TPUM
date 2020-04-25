@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPUM.Data
+namespace WindowsFormsApp1.Data
 {
-    abstract class CharacterBaseClass
+    abstract class CharacterBaseClass 
     {
-        public IList<CharacterBaseClass> MultiClasses { get; set; }
+        public string CharacterName { get; set; }
+        public int Stamina { get; set; }
+        public int Endurance { get; set; }
+        public int Strength { get; set; }
+
     }
 }
