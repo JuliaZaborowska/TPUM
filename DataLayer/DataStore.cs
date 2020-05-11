@@ -13,7 +13,7 @@ namespace DataLayer
             SeedData();
         }
 
-        public static State State { get; set; }
+        public State State { get; set; }
 
         public static DataStore Instance
         {
@@ -28,9 +28,10 @@ namespace DataLayer
             }
         }
 
-        private static void SeedData()
+        private void SeedData()
         {
-            State = new State(users: new List<User>
+            State = new State(
+                users: new List<User>
                 {
                     new User
                     {
@@ -40,11 +41,17 @@ namespace DataLayer
                     new User
                     {
                         Email = "mikewazowski@gmail.com", FirstName = "Mike", LastName = "Wazowski", Phone = "555555555"
+                    },
+
+                    new User
+                    {
+                        Email = "michalniedoszly@gmail.com", FirstName = "Michal", LastName = "MozePrzyszly",
+                        Phone = "21372137"
                     }
                 },
-                books: new List<Book>()
+                books: new List<Book>
                 {
-                    new Book()
+                    new Book
                     {
                         Author = "Marta Zaborowska",
                         Title = "Gwiazdozbiór",
@@ -52,15 +59,15 @@ namespace DataLayer
                         Publisher = "Czarna Owca",
                         ReleaseYear = 2015
                     },
-                    new Book()
+                    new Book
                     {
                         Author = "Marta Zaborowska",
                         Title = "Jej wszystkie śmierci",
                         Price = 37.21m,
                         Publisher = "Czarna Owca",
-                        ReleaseYear = 2015
+                        ReleaseYear = 2017
                     },
-                    new Book()
+                    new Book
                     {
                         Author = "Marta Zaborowska",
                         Title = "Uśpienie",
@@ -68,8 +75,12 @@ namespace DataLayer
                         Publisher = "Edipresse",
                         ReleaseYear = 2013
                     }
+                },
+                discountCodes: new List<DiscountCode>
+                {
+                    new DiscountCode {Code = "WINDSURFING", Amount = 15}
                 }
-                );
+            );
         }
     }
 }

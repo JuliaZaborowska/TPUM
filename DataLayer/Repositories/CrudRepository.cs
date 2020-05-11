@@ -1,43 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DataLayer.Model;
 
 namespace DataLayer.Repositories
 {
-    public abstract class CrudRepository<T> : ICrudRepository<T> where T : BaseEntity 
+    public abstract class CrudRepository<T> : ICrudRepository<T> where T : BaseEntity
     {
         protected CrudRepository(IList<T> items)
         {
-            this.Items = items;
+            Items = items;
         }
 
         protected CrudRepository()
         {
-
         }
 
         /// <summary>
-        /// Collection of items being managed by repository.
+        ///     Collection of items being managed by repository.
         /// </summary>
         public IList<T> Items { get; } = new List<T>();
 
-         /// <summary>
-         /// Creates or updates item.
-         /// </summary>
-         /// <param name="item"></param>
-         /// <returns> Created or updated item </returns>
-         public T CreateOrUpdate(T item)
-         {
-             return item.Id == null ? Create(item) : Update(item);
-         }
+        /// <summary>
+        ///     Creates or updates item.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns> Created or updated item </returns>
+        public T CreateOrUpdate(T item)
+        {
+            return item.Id == null ? Create(item) : Update(item);
+        }
 
-         /// <summary>
-         /// Adds item to items collection.
-         /// </summary>
-         /// <param name="item"></param>
-         /// <returns> Created item</returns>
+        /// <summary>
+        ///     Adds item to items collection.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns> Created item</returns>
         public T Create(T item)
         {
             item.Id = Guid.NewGuid();
@@ -46,7 +44,7 @@ namespace DataLayer.Repositories
         }
 
         /// <summary>
-        /// Find item matching provided predicate.
+        ///     Find item matching provided predicate.
         /// </summary>
         /// <param name="predicate"> Predicate to test against each item. </param>
         /// <returns> Returns item or null </returns>
@@ -56,65 +54,53 @@ namespace DataLayer.Repositories
         }
 
         /// <summary>
-        /// Update existing item
+        ///     Update existing item
         /// </summary>
         /// <param name="item"> Object with updated values </param>
         /// <returns> Return updated object. </returns>
         public T Update(T item)
         {
-            T currentItem = Items.FirstOrDefault(i => i.Id.Equals(item.Id));
-            if (currentItem is null)
-            {
-                throw new ArgumentException("Provided item does not exist and can't be updated.");
-            }
+            var currentItem = Items.FirstOrDefault(i => i.Id.Equals(item.Id));
+            if (currentItem is null) throw new ArgumentException("Provided item does not exist and can't be updated.");
 
             CopyProperties(item, currentItem);
             return currentItem;
         }
 
         /// <summary>
-        /// Delete item by reference.
+        ///     Delete item by reference.
         /// </summary>
         /// <param name="item"> Reference to existing item </param>
         public void Delete(T item)
         {
-            T existingItem = Items.FirstOrDefault(i => i.Id.Equals(item.Id));
-            if (existingItem is null)
-            {
-                throw new ArgumentException("Provided item does not exist and can't be updated.");
-            }
+            var existingItem = Items.FirstOrDefault(i => i.Id.Equals(item.Id));
+            if (existingItem is null) throw new ArgumentException("Provided item does not exist and can't be updated.");
 
             Items.Remove(existingItem);
         }
+
         /// <summary>
-        /// Delete item by id.
+        ///     Delete item by id.
         /// </summary>
         /// <param name="id"> Unique identifier of item </param>
         public void Delete(Guid id)
         {
-            T existingItem = Items.FirstOrDefault(i => i.Id.Equals(id));
-            if (existingItem is null)
-            {
-                throw new ArgumentException("Provided item does not exist and can't be updated.");
-            }
+            var existingItem = Items.FirstOrDefault(i => i.Id.Equals(id));
+            if (existingItem is null) throw new ArgumentException("Provided item does not exist and can't be updated.");
 
             Items.Remove(existingItem);
         }
 
         /// <summary>
-        /// Copy all property values from one object to another. Source object is modified.
+        ///     Copy all property values from one object to another. Source object is modified.
         /// </summary>
         /// <param name="source"> Source object which property values will be copied. </param>
         /// <param name="destination"> Destination object which properties will be modified. </param>
         private void CopyProperties(T source, T destination)
         {
-            foreach (PropertyInfo property in typeof(T).GetProperties())
-            {
+            foreach (var property in typeof(T).GetProperties())
                 if (property.CanWrite)
-                {
                     property.SetValue(destination, property.GetValue(source, null), null);
-                }
-            }
         }
     }
 }
