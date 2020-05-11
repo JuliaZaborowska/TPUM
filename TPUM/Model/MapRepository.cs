@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Data
 {
@@ -27,6 +24,7 @@ namespace WindowsFormsApp1.Data
             Console.WriteLine("Created new instance of {0}", map.Name);
             return map;
         }
+
         public IMap GetField(FieldType type)
         {
             IMap map = MapList.Find(x => x.Type == type);
