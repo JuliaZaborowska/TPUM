@@ -3,7 +3,7 @@ using System.Linq;
 using DataLayer;
 using DataLayer.Model;
 using DataLayer.Repositories.Books;
-using DataLayer.Repositories.DiscountCodeRepository;
+using DataLayer.Repositories.DiscountCodes;
 using DataLayer.Repositories.Users;
 using LogicLayer.DataTransferObjects;
 using LogicLayer.ModelMapper;
@@ -64,6 +64,12 @@ namespace LogicLayer.Services.CartService
 
             return rawPrice;
 
+        }
+
+        public CartDTO GetCart(Guid userId)
+        {
+            User user = _userRepository.Find(u => u.Id.Equals(userId));
+            return _modelMapper.ToCartDTO(user.Cart);
         }
     }
 }

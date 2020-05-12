@@ -78,7 +78,12 @@ namespace DataLayer
                 },
                 discountCodes: new List<DiscountCode>
                 {
-                    new DiscountCode {Code = "WINDSURFING", Amount = 15}
+                    new DiscountCode {Code = "WAKACJE", Amount = 15},
+                    new DiscountCode {Code = "DARMOWA_DOSTAWA", Amount = 10},
+                    new DiscountCode {Code = "NA_PLAZY", Amount = 5},
+                    new DiscountCode {Code = "LUBIMY_CZYTAC", Amount = 20},
+                    new DiscountCode {Code = "EBOOK", Amount = 8},
+                    new DiscountCode {Code = "MAKULATURA", Amount = 12}
                 }
             );
         }

@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using ViewLayer.ViewModel;
 
-namespace ViewLayer
+namespace PresentationLayer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

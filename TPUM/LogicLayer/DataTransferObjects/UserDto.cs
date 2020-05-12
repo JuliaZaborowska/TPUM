@@ -1,10 +1,13 @@
-﻿using DataLayer.Model;
+﻿using System;
+using DataLayer.Model;
 using System.ComponentModel.DataAnnotations;
 
 namespace LogicLayer.DataTransferObjects
 {
     public class UserDTO
     {
+        public Guid? Id { get; set; }
+
         [Required]
         [MinLength(3)]
         [MaxLength(64)]
