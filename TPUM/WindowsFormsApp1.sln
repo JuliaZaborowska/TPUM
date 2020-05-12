@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewLayer", "..\Views_Layer\ViewLayer.csproj", "{57B12995-418E-4ED3-B8FB-3D97C8358A00}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "..\DataLayer\DataLayer.csproj", "{D70C5193-2D7B-4740-B54D-308901F6523D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{88BCF485-EC3F-4D1D-B918-97E9694DB941}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{881444C2-246A-485B-9D88-FBE85E8AB5B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{D342618E-7543-41CF-A50D-E8A5ED1D858A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{D342618E-7543-41CF-A50D-E8A5ED1D858A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{57B12995-418E-4ED3-B8FB-3D97C8358A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57B12995-418E-4ED3-B8FB-3D97C8358A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57B12995-418E-4ED3-B8FB-3D97C8358A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57B12995-418E-4ED3-B8FB-3D97C8358A00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D70C5193-2D7B-4740-B54D-308901F6523D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D70C5193-2D7B-4740-B54D-308901F6523D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D70C5193-2D7B-4740-B54D-308901F6523D}.Release|Any CPU.ActiveCfg = Release|Any CPU
