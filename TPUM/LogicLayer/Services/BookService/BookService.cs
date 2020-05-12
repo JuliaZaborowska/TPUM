@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataLayer;
 using DataLayer.Model;
 using DataLayer.Repositories.Books;
@@ -31,9 +32,9 @@ namespace LogicLayer.Services.BookService
             return _modelMapper.ToBookDTO(book);
         }
 
-        public IEnumerable<Book> GetAllBooks(Guid id)
+        public IEnumerable<BookDTO> GetAllBooks()
         {
-            return _bookRepository.Items;
+            return _bookRepository.Items.Select(_modelMapper.ToBookDTO);
         }
 
         public BookDTO AddBook(BookDTO dto)

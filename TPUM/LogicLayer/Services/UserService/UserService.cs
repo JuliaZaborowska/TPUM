@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataLayer;
 using DataLayer.Model;
 using DataLayer.Repositories.Users;
@@ -31,9 +32,9 @@ namespace LogicLayer.Services.UserService
             return _modelMapper.ToUserDTO(user);
         }
 
-        public IEnumerable<User> GetAllUsers(Guid id)
+        public IEnumerable<UserDTO> GetAllUsers()
         {
-            return _userRepository.Items;
+            return _userRepository.Items.Select(_modelMapper.ToUserDTO);
         }
 
         public UserDTO AddUser(UserDTO dto)

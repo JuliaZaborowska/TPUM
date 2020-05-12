@@ -9,5 +9,6 @@ namespace LogicLayer.Services.CartService
         CartDTO AddBookToCart(Guid bookId, Guid userId);
         CartDTO RemoveBookFromCart(Guid bookId, Guid userId);
         decimal CalculateTotalPrice(Guid userId, string code);
+        CartDTO GetCart(Guid userId);
     }
 }

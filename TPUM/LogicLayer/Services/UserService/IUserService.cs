@@ -5,10 +5,10 @@ using LogicLayer.DataTransferObjects;
 
 namespace LogicLayer.Services.UserService
 {
-    interface IUserService
+    public interface IUserService
     {
         UserDTO GetUserById(Guid id);
-        IEnumerable<User> GetAllUsers(Guid id);
+        IEnumerable<UserDTO> GetAllUsers();
         UserDTO AddUser(UserDTO dto);
         void DeleteUser(Guid user);
         UserDTO UpdateUser(UserDTO dto);

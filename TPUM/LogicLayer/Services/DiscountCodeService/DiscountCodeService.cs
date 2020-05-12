@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DataLayer;
 using DataLayer.Model;
-using DataLayer.Repositories.DiscountCodeRepository;
+using DataLayer.Repositories.DiscountCodes;
 using LogicLayer.DataTransferObjects;
 using LogicLayer.ModelMapper;
 
 namespace LogicLayer.Services.DiscountCodeService
 {
-    class DiscountCodeService : IDiscountCodeService
+    public class DiscountCodeService : IDiscountCodeService
     {
         private readonly IDiscountCodeRepository _discountCodeRepository;
         private readonly DTOModelMapper _modelMapper;
@@ -15,6 +17,7 @@ namespace LogicLayer.Services.DiscountCodeService
         public DiscountCodeService()
         {
             _discountCodeRepository = new DiscountCodeRepository(DataStore.Instance.State.DiscountCodes);
+            _modelMapper = new DTOModelMapper();
         }
 
         public DiscountCodeService(IDiscountCodeRepository discountCodeRepository, DTOModelMapper modelMapper)
@@ -28,6 +31,11 @@ namespace LogicLayer.Services.DiscountCodeService
             DiscountCode discountCode = _modelMapper.FromDiscountCodeDTO(dto);
             DiscountCode created = _discountCodeRepository.Create(discountCode);
             return _modelMapper.ToDiscountCodeDTO(created);
+        }
+
+        public IEnumerable<DiscountCodeDTO> GetAllDiscountCodes()
+        {
+            return _discountCodeRepository.Items.Select( item => _modelMapper.ToDiscountCodeDTO(item));
         }
 
         public void RemoveDiscountCode(Guid discountCodeId)
