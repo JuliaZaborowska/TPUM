@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
+using LogicLayer;
 using LogicLayer.DataTransferObjects;
 using LogicLayer.Services.BookService;
 using LogicLayer.Services.DiscountCodeService;
@@ -25,6 +26,7 @@ namespace PresentationLayer.ViewModel
         private HotShotPromotionPublisher _publisher;
         private IObservable<EventPattern<HotShotMessage>> _observable;
         private IDisposable _observer;
+        private WebSocketServer _webserver;
 
         //TODO:
         // private ObservableCollection<BookDTO> _cartBooks;
@@ -117,6 +119,9 @@ namespace PresentationLayer.ViewModel
         {
             _publisher = new HotShotPromotionPublisher(TimeSpan.FromSeconds(5));
             _publisher.Start();
+
+            _webserver = new WebSocketServer();
+            _webserver.Start();
         }
     }
 }
