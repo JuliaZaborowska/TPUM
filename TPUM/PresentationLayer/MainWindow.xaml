@@ -20,8 +20,8 @@
         <viewModel:MainViewModel />
     </Window.DataContext>
 
-    <Grid>
-        <TabControl Background="#373533">
+    <Grid Background="#373533">
+        <TabControl  Background="#373533">
             <TabItem Header="Users">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -55,8 +55,13 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>
-                    <Button Grid.Row="1" HorizontalAlignment="Center" Width="200" Content="Fetch Users"
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <Button  HorizontalAlignment="Center" Width="300" Content="Initialize Connection"
+                                 Command="{Binding ConnectToWebsocketCommand}" />
+                    <StackPanel Width="30"></StackPanel>
+                        <Button HorizontalAlignment="Center" Width="300" Content="Get Users"
                             Command="{Binding FetchUsersCommand}" />
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Books">
@@ -140,11 +145,18 @@
                                 <TextBlock FontSize="24" FontWeight="Bold" Foreground="MediumPurple" HorizontalAlignment="Center" Text="{Binding CurrentDiscountCode.Amount}"/>
                                 <TextBlock FontSize="24" FontWeight="Bold" Foreground="MediumPurple" HorizontalAlignment="Center" Text="%"/>
                             </StackPanel>
-                            
+
                         </StackPanel>
-                </ScrollViewer>
-                <Button Grid.Row="1" HorizontalAlignment="Center" Width="300" Content="Subscribe to PromotionChannel"
-                        Command="{Binding SubscribeCommand}" />
+                    </ScrollViewer>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <Button  HorizontalAlignment="Center" Width="300" Content="Initialize Connection"
+                                Command="{Binding InitializeConnectionCommand}" />
+                        <StackPanel Width="30"></StackPanel>
+                        <Button HorizontalAlignment="Center" Width="300" Content="Get Discount Codes"
+                                Command="{Binding ConnectToWebsocketCommand}" />
+
+                    </StackPanel>
+
                 </Grid>
             </TabItem>
         </TabControl>

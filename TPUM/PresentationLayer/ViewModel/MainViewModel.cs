@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
-using LogicLayer;
 using LogicLayer.DataTransferObjects;
 using LogicLayer.Services.BookService;
 using LogicLayer.Services.DiscountCodeService;
 using LogicLayer.Services.HotShotPromotionService;
 using LogicLayer.Services.UserService;
+using Newtonsoft.Json;
 using PresentationLayer.Commands;
+using PresentationLayer.Model;
+using PresentationLayer.Websockets;
 
 namespace PresentationLayer.ViewModel
 {
@@ -26,13 +31,12 @@ namespace PresentationLayer.ViewModel
         private HotShotPromotionPublisher _publisher;
         private IObservable<EventPattern<HotShotMessage>> _observable;
         private IDisposable _observer;
-        private WebSocketServer _webserver;
 
-        //TODO:
-        // private ObservableCollection<BookDTO> _cartBooks;
-        // private CartDTO _cart;
-        // private readonly ICartService _cartService = new CartService();
+        private WebsocketClient _websocketClient = new WebsocketClient();
+ 
 
+        private Uri _Uri;
+        private string _UriPeer = "ws://localhost:8081/";
 
         // Example of proactive calls
         public ObservableCollection<UserDTO> Users
@@ -76,6 +80,7 @@ namespace PresentationLayer.ViewModel
             }
         }
 
+        public ICommand ConnectToWebsocketCommand => new RelayCommand(CreateConnection);
         public ICommand FetchUsersCommand  => new RelayCommand(FetchUsers);
         public ICommand FetchBooksCommand => new RelayCommand(FetchBooks);
         public ICommand FetchDiscountCodesCommand => new RelayCommand(FetchDiscountCodes);
@@ -94,34 +99,57 @@ namespace PresentationLayer.ViewModel
             CurrentDiscountCode = discountCode;
         }
 
-        private void FetchUsers()
+        private void CreateConnection()
         {
-            Users = new ObservableCollection<UserDTO>(_userService.GetAllUsers());
+            _websocketClient.InitializeClient(OnMessageReceived);
+        }
+
+        private async void FetchUsers()
+        {
+            Message messageSent = new Message() {Action = EndpointAction.GET_USERS};
+            await _websocketClient.SendAsync(messageSent + "<EOF>");
         }       
-        private void FetchBooks()
+        private async void FetchBooks()
         {
-            Books = new ObservableCollection<BookDTO>(_bookService.GetAllBooks());
+            Message messageSent = new Message() { Action = EndpointAction.GET_BOOKS };
+            await _websocketClient.SendAsync(messageSent + "<EOF>");
         }        
         
-        private void FetchDiscountCodes()
+        private async void FetchDiscountCodes()
         {
-            DiscountCodes = new ObservableCollection<DiscountCodeDTO>(_discountService.GetAllDiscountCodes());
+            Message messageSent = new Message() { Action = EndpointAction.GET_DISCOUNT_CODES };
+            await _websocketClient.SendAsync(messageSent + "<EOF>");
         }
 
-        private void InitializeData()
+       private void OnMessageReceived(string data)
         {
-            // var currentUser = Users.First();
-            // _cart = _cartService.GetCart(currentUser.Id.GetValueOrDefault());
-            // _cartBooks = new ObservableCollection<BookDTO>(_cart.Books);
+            Trace.WriteLine("RECEIVED:");
+            Trace.WriteLine(data);
+            Message message = JsonConvert.DeserializeObject<Message>(data);
+            if (message.Action == EndpointAction.GET_BOOKS)
+            {
+                var bookArray = JsonConvert.DeserializeObject<List<BookDTO>>(message.Body);
+                var books = new ObservableCollection<BookDTO>(bookArray);
+                Books = books;
+            }
+            else if (message.Action == EndpointAction.GET_USERS)
+            {
+                var userArray = JsonConvert.DeserializeObject<UserDTO[]>(message.Body);
+                var users = new ObservableCollection<UserDTO>(userArray);
+                Users = users;
+            }
+            else if (message.Action == EndpointAction.GET_DISCOUNT_CODES)
+            {
+                var discountArrays = JsonConvert.DeserializeObject<DiscountCodeDTO[]>(message.Body);
+                var discountCodes = new ObservableCollection<DiscountCodeDTO>(discountArrays);
+                DiscountCodes = discountCodes;
+            }
         }
-
+      
         public MainViewModel()
         {
             _publisher = new HotShotPromotionPublisher(TimeSpan.FromSeconds(5));
             _publisher.Start();
-
-            _webserver = new WebSocketServer();
-            _webserver.Start();
         }
     }
 }
