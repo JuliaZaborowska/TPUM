@@ -1,71 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Sockets;
-using System.Text;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
-using LogicLayer.DataTransferObjects;
-using Newtonsoft.Json;
-using WebsocketServer.Resolver;
 
 namespace WebsocketServer
 {
     public class WebsocketServer : IDisposable
     {
         private readonly Action<string> Log;
-        private readonly IPEndPoint _endpoint;
-        private Socket _listener;
-        public List<SocketConnection> Connections = new List<SocketConnection>();
+        private HttpListener _listener;
+        private readonly string _address;
+        public List<WebSocketConnection> Connections = new List<WebSocketConnection>();
 
-        public WebsocketServer(Action<string> log, IPEndPoint endpoint)
+        public WebsocketServer(Action<string> log, string address)
         {
             Log = log;
-            _endpoint = endpoint;
+            _address = address;
+            _listener = new HttpListener();
+            _listener.Prefixes.Add(address);
         }
 
         public async Task Listen()
         {
-            _listener = new Socket(_endpoint.AddressFamily,
-                SocketType.Stream, ProtocolType.Tcp);
 
-            try
-            {
-                _listener.Bind(_endpoint);
+            // try
+            // {
+                _listener.Start();
 
-                _listener.Listen(10);
-                Log("Waiting for client to connect ... ");
+                Log($"Waiting for connections on {_address} ... ");
 
+            
                 while (true)
                 {
-                    Socket clientSocket = _listener.Accept();
-                    var connection = new SocketConnection(clientSocket, _endpoint, Log);
-                    await InitializeConnection(connection);
+                    HttpListenerContext httpListenerContext = await _listener.GetContextAsync();
+
+                    if (httpListenerContext.Request.IsWebSocketRequest)
+                    {
+                        await InitializeConnection(httpListenerContext);
+                    }
+         
                 }
-            }
+            // }
 
-            catch (Exception e)
-            {
-                Log(e.ToString());
-            }
+            // catch (Exception e)
+            // {
+            //     Log(e.ToString());
+            // }
         }
-        private async Task InitializeConnection(SocketConnection connection)
+        private async Task InitializeConnection(HttpListenerContext context)
         {
-            Connections.Add(connection);
-            Log($"Maintaining {Connections.Count} active connections.");
-            // await WriteAsync(connection.Socket, "Connected to server");
-        }
+            // try
+            // {
+                HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(subProtocol: null);
+                WebSocketConnection connection = new WebSocketConnection(webSocketContext.WebSocket, Log);
+                Connections.Add(connection);
 
-        private async Task WriteAsync(Socket socket, String message)
-        {
-            Message msg = new Message() {Type="Text", Body = message};
-            byte[] buffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msg));
-            var segments = new ArraySegment<byte>(buffer);
-            await socket.SendAsync(segments, SocketFlags.None);
+                Log($"Maintaining {Connections.Count} active connections.");
+            // }
+            // catch (Exception ex)
+            // {
+            //     context.Response.StatusCode = 500;
+            //     context.Response.Close();
+            //     Log($"Unable to establish connection: {ex.Message}.");
+            // }
         }
 
         public void Dispose()
         {
-            _listener?.Dispose();
+           Connections.ForEach(connection => connection?.Dispose());
         }
     }
 }

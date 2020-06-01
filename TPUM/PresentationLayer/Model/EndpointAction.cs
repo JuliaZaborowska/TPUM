@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebsocketServer.Resolver
+namespace PresentationLayer
 {
     public enum EndpointAction
     {
@@ -9,7 +9,7 @@ namespace WebsocketServer.Resolver
         GET_DISCOUNT_CODES = 2
 
     }
-        
+
     static class EndpointActionMethods
     {
 

@@ -11,9 +11,9 @@ namespace WebsocketServer.Resolver
 
     class RequestResolver
     {
-        private IUserService _userService;
-        private IBookService _booksService;
-        private IDiscountCodeService _discountCodeService;
+        private readonly IUserService _userService;
+        private readonly IBookService _booksService;
+        private readonly IDiscountCodeService _discountCodeService;
 
         public RequestResolver()
         {
@@ -25,29 +25,31 @@ namespace WebsocketServer.Resolver
         public string Resolve(string message)
         {
             Message msgObj = JsonConvert.DeserializeObject<Message>(message);
+            EndpointAction action;
+            Enum.TryParse(msgObj.Action, out action);
+            Message response;
 
-            if (msgObj.Action == EndpointAction.GET_BOOKS)
+            switch (action)
             {
-                IEnumerable<BookDTO> books = _booksService.GetAllBooks();
-                Message response = new Message() { Action = EndpointAction.GET_BOOKS, Body = JsonConvert.SerializeObject(books), Type = "Array:Book" };
-                return JsonConvert.SerializeObject(response);
-            }
+                case EndpointAction.GET_BOOKS:
+                    IEnumerable<BookDTO> books = _booksService.GetAllBooks();
+                    response = new Message() { Action = EndpointAction.GET_BOOKS.GetString(), Body = JsonConvert.SerializeObject(books), Type = "Array:Book" };
+                    break;
+          
+                case EndpointAction.GET_USERS:
+                    IEnumerable<UserDTO> users = _userService.GetAllUsers();
+                     response = new Message() { Action = EndpointAction.GET_USERS.GetString(), Body = JsonConvert.SerializeObject(users), Type = "Array:User" };
+                    break;
 
-            if (msgObj.Action == EndpointAction.GET_USERS)
-            {
-                IEnumerable<UserDTO> users = _userService.GetAllUsers();
-                Message response = new Message() {Action = EndpointAction.GET_USERS, Body = JsonConvert.SerializeObject(users), Type = "Array:User" };
-                return JsonConvert.SerializeObject(response);
+                case EndpointAction.GET_DISCOUNT_CODES:
+                    IEnumerable<DiscountCodeDTO> discountCodes = _discountCodeService.GetAllDiscountCodes();
+                     response = new Message() { Action = EndpointAction.GET_DISCOUNT_CODES.GetString(), Body = JsonConvert.SerializeObject(discountCodes), Type = "Array:DiscountCode" };
+                    break;
+                default:
+                    throw new NotSupportedException("Requested action is not supported");
             }
+            return JsonConvert.SerializeObject(response);
 
-            if (msgObj.Action == EndpointAction.GET_DISCOUNT_CODES)
-            {
-                IEnumerable<DiscountCodeDTO> discountCodes = _discountCodeService.GetAllDiscountCodes();
-                Message response = new Message() {Action = EndpointAction.GET_DISCOUNT_CODES, Body = JsonConvert.SerializeObject(discountCodes), Type = "Array:DiscountCode" };
-                return JsonConvert.SerializeObject(response);
-            }
-
-            throw new NotSupportedException();
         }
     }
 }

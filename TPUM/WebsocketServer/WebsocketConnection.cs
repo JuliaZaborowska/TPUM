@@ -1,57 +1,47 @@
 ﻿using System;
-using System.Net;
-using System.Net.Sockets;
+using System.Net.WebSockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WebsocketServer.Resolver;
 
 namespace WebsocketServer
 {
-    public class SocketConnection : IDisposable
+    public class WebSocketConnection : IDisposable
     {
-        public Socket Socket { get; }
-        
-        private IPEndPoint _endPoint;
+        public WebSocket Socket { get; }
         private Action<string> Log;
         private readonly RequestResolver _requestResolver;
 
 
-        public SocketConnection(Socket socket, IPEndPoint remoteEndPoint, Action<string> log)
+        public WebSocketConnection(WebSocket socket, Action<string> log)
         {
-            Log = s => Console.WriteLine(s);
+            Log = Console.WriteLine;
             Socket = socket;
-            _endPoint = remoteEndPoint;
             _requestResolver = new RequestResolver();
             Task.Factory.StartNew(() => MonitorConnection(socket));
         }
 
-        public SocketConnection(Socket socket, IPEndPoint remoteEndPoint)
-        {
-            Log = (arg) => { };
-            Socket = socket;
-            _endPoint = remoteEndPoint;
-            _requestResolver = new RequestResolver();
-            Task.Factory.StartNew(() => MonitorConnection(socket));
-        }
-
-        private async Task MonitorConnection(Socket clientSocket)
+        private async Task MonitorConnection(WebSocket clientSocket)
         {
             Log("Connected");
 
-            byte[] bytes = new Byte[1024];
-            string data = null;
+            byte[] bytes = new byte[1024];
 
             while (true)
             {
-                int numByte = await clientSocket.ReceiveAsync(bytes,SocketFlags.None);
+                Array.Clear(bytes, 0, bytes.Length);
+                WebSocketReceiveResult result = await clientSocket.ReceiveAsync(bytes, CancellationToken.None);
 
-                data += Encoding.ASCII.GetString(bytes, 0, numByte);
-
-                if (data.IndexOf("<EOF>") > -1)
+                if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    data = data.Substring(0, data.Length - 5);
+                    await Socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Client disconnected.", CancellationToken.None);
+                }
+                else
+                {
+                    var data = Encoding.UTF8.GetString(bytes).TrimEnd('\0');
+                    data = data.Substring(0);
                     HandleRequest(data);
-                    data = null;
                 }
             }
         }
@@ -63,13 +53,13 @@ namespace WebsocketServer
             string response = _requestResolver.Resolve(data);
             Log("Response: ");
             Log(response);
-            await SendAsync(response + "<EOF>");
+            await SendAsync(response.ToString());
         }
 
         public async Task SendAsync(string message)
         {
             ArraySegment<byte> payload = new ArraySegment<byte>(Encoding.ASCII.GetBytes(message));
-            await Socket.SendAsync(payload, SocketFlags.None);
+            await Socket.SendAsync(payload, WebSocketMessageType.Text, true, CancellationToken.None);
         }
 
         public void Dispose()

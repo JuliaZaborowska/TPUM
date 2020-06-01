@@ -1,55 +1,56 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net;
-using System.Net.Sockets;
+using System.Net.WebSockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace PresentationLayer.Websockets
 {
-    class SocketConnection
+    class SocketConnection : IDisposable
     {
-        public Socket Socket { get; }
-        public Func<string, Task> OnHandleResponse { get; }
+        public WebSocket Socket { get; }
+        public Action<string> OnHandleResponse { get; }
 
-        private IPEndPoint _endPoint;
-
-        public SocketConnection(Socket socket, IPEndPoint remoteEndPoint, Func<string, Task> onHandleResponse)
+        public SocketConnection(WebSocket socket, Action<string> onHandleResponse)
         {
             Socket = socket;
-            _endPoint = remoteEndPoint;
             Task.Factory.StartNew(() => MonitorConnection(socket));
-            Console.WriteLine("Connected");
             OnHandleResponse = onHandleResponse;
         }
 
-        private async Task MonitorConnection(Socket clientSocket)
+        private async Task MonitorConnection(WebSocket clientSocket)
         {
             byte[] bytes = new Byte[1024];
-            string data = null;
 
-            while (clientSocket.Connected)
+            while (clientSocket.State == WebSocketState.Open)
             {
-                int numByte = clientSocket.Receive(bytes);
+                Array.Clear(bytes, 0, bytes.Length);
+                WebSocketReceiveResult result = await clientSocket.ReceiveAsync(bytes, CancellationToken.None);
 
-                data += Encoding.ASCII.GetString(bytes, 0, numByte);
-
-                if (data.IndexOf("<EOF>") > -1)
+                if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    data = data.Substring(0, data.Length - 5);
-                    await OnHandleResponse(data);
-                    data = null;
+                    await Socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Client disconnected.", CancellationToken.None);
                 }
-                Trace.WriteLine($"RECEIVED:{data}");
-
+                else
+                {
+                    var data = Encoding.UTF8.GetString(bytes).TrimEnd('\0');
+                    data = data.Substring(0, data.Length - 5);
+                    OnHandleResponse(data);
+                    Trace.WriteLine($"RECEIVED:{data}");
+                }
             }
         }
 
         public async Task SendAsync(string message)
         {
             ArraySegment<byte> payload = new ArraySegment<byte>(Encoding.ASCII.GetBytes(message));
-            await Socket.SendAsync(payload, SocketFlags.None);
+            await Socket.SendAsync(payload, WebSocketMessageType.Text, true, CancellationToken.None);
+        }
+
+        public void Dispose()
+        {
+            Socket?.Dispose();
         }
     }
 }

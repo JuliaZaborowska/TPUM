@@ -9,22 +9,17 @@ namespace WebsocketServer
     {
         static async Task Main(string[] args)
         {
-            IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddr, 11111);
-
-            Log(ipAddr.ToString());
-            try
-            {
-                using WebsocketServer websocketServer = new WebsocketServer(Log, localEndPoint);
+            // try
+            // {
+                using WebsocketServer websocketServer = new WebsocketServer(Log, "http://localhost:9000/api/");
                 await websocketServer.Listen();
                 Console.ReadKey();
-            }
-            catch (Exception e)
-            {
-                Log("Unexpected error");
-                Log(e.Message);
-            }
+            // }
+            // catch (Exception e)
+            // {
+            //     Log("Unexpected error");
+            //     Log(e.Message);
+            // }
 
         }
 
