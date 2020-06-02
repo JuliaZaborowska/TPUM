@@ -10,22 +10,22 @@ namespace PresentationLayer.Websockets
     class WebsocketClient: IDisposable
     {
         private readonly string _address;
-        private ClientWebSocket _webSocket;
+        public ClientWebSocket WebSocket { get; private set; }    
         private SocketConnection _connection;
 
         public WebsocketClient(string address)
         {
             _address = address;
-            _webSocket = new ClientWebSocket();
+            WebSocket = new ClientWebSocket();
         }
         public async Task<SocketConnection> Connect(Action<string> handleResponse)
         {
             try
             {
-                _webSocket = new ClientWebSocket();
-                await _webSocket.ConnectAsync(new Uri(_address), CancellationToken.None);
+                WebSocket = new ClientWebSocket();
+                await WebSocket.ConnectAsync(new Uri(_address), CancellationToken.None);
                 Trace.WriteLine($"Connecting to server ...");
-                _connection = new SocketConnection(_webSocket, handleResponse);
+                _connection = new SocketConnection(WebSocket, handleResponse);
                 Trace.WriteLine($"Socket connected");
             }
             catch (ArgumentNullException ane)
@@ -50,7 +50,7 @@ namespace PresentationLayer.Websockets
 
         public void Dispose()
         {
-            _webSocket?.Dispose();
+            WebSocket?.Dispose();
             _connection?.Dispose();
         }
     }

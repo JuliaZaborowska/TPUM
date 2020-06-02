@@ -9,12 +9,13 @@ namespace WebsocketServer
 {
     public class WebSocketConnection : IDisposable
     {
+
+
         public WebSocket Socket { get; }
         private Action<string> Log;
         private readonly RequestResolver _requestResolver;
 
-
-        public WebSocketConnection(WebSocket socket, Action<string> log)
+        public WebSocketConnection(WebSocket socket,  Action<string> log)
         {
             Log = Console.WriteLine;
             Socket = socket;
@@ -26,7 +27,7 @@ namespace WebsocketServer
         {
             Log("Connected");
 
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[4096];
 
             while (true)
             {
@@ -53,7 +54,7 @@ namespace WebsocketServer
             string response = _requestResolver.Resolve(data);
             Log("Response: ");
             Log(response);
-            await SendAsync(response.ToString());
+            await SendAsync(response);
         }
 
         public async Task SendAsync(string message)

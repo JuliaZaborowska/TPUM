@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:PresentationLayer"
         xmlns:viewModel="clr-namespace:PresentationLayer.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MobileDevicesWebsocketCommunicatingApplicationSellingBooksAndBeingAmazing" Height="800" Width="1200"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -21,7 +21,11 @@
     </Window.DataContext>
 
     <Grid Background="#373533">
-        <TabControl  Background="#373533">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.Column="0" Grid.ColumnSpan="2"  Background="#373533">
             <TabItem Header="Users">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -145,20 +149,24 @@
                                 <TextBlock FontSize="24" FontWeight="Bold" Foreground="MediumPurple" HorizontalAlignment="Center" Text="{Binding CurrentDiscountCode.Amount}"/>
                                 <TextBlock FontSize="24" FontWeight="Bold" Foreground="MediumPurple" HorizontalAlignment="Center" Text="%"/>
                             </StackPanel>
-
                         </StackPanel>
                     </ScrollViewer>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
-                        <Button  HorizontalAlignment="Center" Width="300" Content="Initialize Connection"
-                                Command="{Binding InitializeConnectionCommand}" />
-                        <StackPanel Width="30"></StackPanel>
-                        <Button HorizontalAlignment="Center" Width="300" Content="Get Discount Codes"
-                                Command="{Binding ConnectToWebsocketCommand}" />
-
-                    </StackPanel>
-
                 </Grid>
             </TabItem>
         </TabControl>
+        <!-- <StackPanel Grid.Column="1" Background="#2a2827"> -->
+        <!--     <Label FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="WhiteSmoke">Cart:</Label> -->
+        <!--     <ListView ItemsSource="{Binding Cart}" > -->
+        <!--         <ListView.ItemTemplate> -->
+        <!--             <DataTemplate> -->
+        <!--                 <WrapPanel > -->
+        <!--                     <TextBlock Foreground="WhiteSmoke" Text="Author: " /> -->
+        <!--                     <TextBlock Foreground="WhiteSmoke" Text="{Binding Author}" FontWeight="Bold" /> -->
+        <!-- -->
+        <!--                 </WrapPanel> -->
+        <!--             </DataTemplate> -->
+        <!--         </ListView.ItemTemplate> -->
+        <!--     </ListView> -->
+        <!-- </StackPanel> -->
     </Grid>
 </Window>

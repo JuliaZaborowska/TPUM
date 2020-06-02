@@ -62,12 +62,58 @@ namespace DataLayer
                     new Book
                     {
                         Author = "Marta Zaborowska",
+                        Title = "Gwiazdozbiór",
+                        Price = 27.31m,
+                        Publisher = "Czarna Owca",
+                        ReleaseYear = 2015
+                    },
+                    new Book
+                    {
+                        Author = "Marta Zaborowska",
+                        Title = "Gwiazdozbiór",
+                        Price = 27.31m,
+                        Publisher = "Czarna Owca",
+                        ReleaseYear = 2015
+                    },
+                    new Book
+                    {
+                        Author = "Marta Zaborowska",
                         Title = "Jej wszystkie śmierci",
                         Price = 37.21m,
                         Publisher = "Czarna Owca",
                         ReleaseYear = 2017
                     },
                     new Book
+                    {
+                        Author = "Marta Zaborowska",
+                        Title = "Jej wszystkie śmierci",
+                        Price = 37.21m,
+                        Publisher = "Czarna Owca",
+                        ReleaseYear = 2017
+                    },
+                    new Book
+                    {
+                        Author = "Marta Zaborowska",
+                        Title = "Uśpienie",
+                        Price = 21.37m,
+                        Publisher = "Edipresse",
+                        ReleaseYear = 2013
+                    },
+                    new Book
+                    {
+                        Author = "Marta Zaborowska",
+                        Title = "Uśpienie",
+                        Price = 21.37m,
+                        Publisher = "Edipresse",
+                        ReleaseYear = 2013
+                    },                    new Book
+                    {
+                        Author = "Marta Zaborowska",
+                        Title = "Uśpienie",
+                        Price = 21.37m,
+                        Publisher = "Edipresse",
+                        ReleaseYear = 2013
+                    },                    new Book
                     {
                         Author = "Marta Zaborowska",
                         Title = "Uśpienie",

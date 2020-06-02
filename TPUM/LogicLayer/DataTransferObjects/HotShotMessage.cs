@@ -1,7 +1,6 @@
 ﻿using System;
-using LogicLayer.DataTransferObjects;
 
-namespace LogicLayer.Services.HotShotPromotionService
+namespace LogicLayer.DataTransferObjects
 {
     public class HotShotMessage : EventArgs
     {

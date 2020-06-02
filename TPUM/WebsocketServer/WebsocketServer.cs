@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using LogicLayer.Services.HotShotPromotionService;
 
 namespace WebsocketServer
 {
@@ -12,6 +13,7 @@ namespace WebsocketServer
         private HttpListener _listener;
         private readonly string _address;
         public List<WebSocketConnection> Connections = new List<WebSocketConnection>();
+        private HotShotPromotionPublisher _promotionPublisher;
 
         public WebsocketServer(Action<string> log, string address)
         {
@@ -19,13 +21,15 @@ namespace WebsocketServer
             _address = address;
             _listener = new HttpListener();
             _listener.Prefixes.Add(address);
+            _promotionPublisher = new HotShotPromotionPublisher(TimeSpan.FromSeconds(10));
+            _promotionPublisher.Start();
         }
 
         public async Task Listen()
         {
 
-            // try
-            // {
+            try
+            {
                 _listener.Start();
 
                 Log($"Waiting for connections on {_address} ... ");
@@ -41,29 +45,35 @@ namespace WebsocketServer
                     }
          
                 }
-            // }
+            }
 
-            // catch (Exception e)
-            // {
-            //     Log(e.ToString());
-            // }
+            catch (Exception e)
+            {
+                Log(e.ToString());
+            }
         }
         private async Task InitializeConnection(HttpListenerContext context)
         {
-            // try
-            // {
+            try
+            {
                 HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(subProtocol: null);
                 WebSocketConnection connection = new WebSocketConnection(webSocketContext.WebSocket, Log);
                 Connections.Add(connection);
-
+                SubscribeToPromotions(connection);
                 Log($"Maintaining {Connections.Count} active connections.");
-            // }
-            // catch (Exception ex)
-            // {
-            //     context.Response.StatusCode = 500;
-            //     context.Response.Close();
-            //     Log($"Unable to establish connection: {ex.Message}.");
-            // }
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = 500;
+                context.Response.Close();
+                Log($"Unable to establish connection: {ex.Message}.");
+            }
+        }
+
+        private void SubscribeToPromotions(WebSocketConnection connection)
+        {
+            var observer = new PromotionObserver(connection);
+            _promotionPublisher.Subscribe(observer);
         }
 
         public void Dispose()

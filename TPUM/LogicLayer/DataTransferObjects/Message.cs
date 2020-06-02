@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PresentationLayer
+namespace LogicLayer.DataTransferObjects
 {
     public class Message
     {

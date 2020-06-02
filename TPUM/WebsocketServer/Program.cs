@@ -9,17 +9,17 @@ namespace WebsocketServer
     {
         static async Task Main(string[] args)
         {
-            // try
-            // {
+            try
+            {
                 using WebsocketServer websocketServer = new WebsocketServer(Log, "http://localhost:9000/api/");
                 await websocketServer.Listen();
                 Console.ReadKey();
-            // }
-            // catch (Exception e)
-            // {
-            //     Log("Unexpected error");
-            //     Log(e.Message);
-            // }
+            }
+            catch (Exception e)
+            {
+                Log("Unexpected error");
+                Log(e.Message);
+            }
 
         }
 

@@ -1,53 +1,57 @@
 ﻿using System;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using DataLayer;
+using DataLayer.Model;
+using DataLayer.Observer;
 using DataLayer.Repositories.DiscountCodes;
-using LogicLayer.ModelMapper;
+using PromotionEvent = DataLayer.Observer.PromotionEvent;
 
 namespace LogicLayer.Services.HotShotPromotionService
 {
     public class HotShotPromotionPublisher : IDisposable
     {
-        private readonly IDiscountCodeRepository _dicountCodeRepository;
-        private readonly DTOModelMapper _modelMapper;
-
+        private readonly IDiscountCodeRepository _discountCodeRepository;
         private IDisposable _subscription;
-
+        private readonly PromotionFeed _promotionFeed = new PromotionFeed();
+            
         public HotShotPromotionPublisher(TimeSpan period)
         {
-            _dicountCodeRepository = new DiscountCodeRepository(DataStore.Instance.State.DiscountCodes);
-            _modelMapper = new DTOModelMapper();
+            _discountCodeRepository = new DiscountCodeRepository(DataStore.Instance.State.DiscountCodes);
             Period = period;
         }
 
         public TimeSpan Period { get; }
 
-        public event EventHandler<HotShotMessage> HotShotMessage;
-
         public void Start()
         {
-            var timerObservable = Observable.Interval(Period);
+            IObservable<long> timerObservable = Observable.Interval(Period);
             _subscription = timerObservable.ObserveOn(Scheduler.Default).Subscribe(RaiseTick);
         }
 
-        private void RaiseTick(long counter)
+        public void Subscribe(IObserver<PromotionEvent> observer)
         {
-            var discountCode = _dicountCodeRepository.GetRandomDiscountCode();
-            HotShotMessage?.Invoke(this, new HotShotMessage(_modelMapper.ToDiscountCodeDTO(discountCode)));
+            _promotionFeed.Subscribe(observer);
+        }
+
+        public void End()
+        {
+            _promotionFeed.End();
+        }
+
+        private  void RaiseTick(long counter)
+        {
+            DiscountCode discountCode = _discountCodeRepository.GetRandomDiscountCode();
+            PromotionEvent promotion = new PromotionEvent(discountCode);
+            _promotionFeed.PublishPromotion(promotion);
         }
 
         #region Dispose
 
-        private bool _disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-        }
-
         public void Dispose()
         {
-            Dispose(true);
+            _subscription?.Dispose();
         }
 
         #endregion

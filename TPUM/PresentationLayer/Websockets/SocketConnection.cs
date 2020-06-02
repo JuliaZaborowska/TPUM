@@ -21,7 +21,7 @@ namespace PresentationLayer.Websockets
 
         private async Task MonitorConnection(WebSocket clientSocket)
         {
-            byte[] bytes = new Byte[1024];
+            byte[] bytes = new byte[4096];
 
             while (clientSocket.State == WebSocketState.Open)
             {
@@ -35,7 +35,6 @@ namespace PresentationLayer.Websockets
                 else
                 {
                     var data = Encoding.UTF8.GetString(bytes).TrimEnd('\0');
-                    data = data.Substring(0, data.Length - 5);
                     OnHandleResponse(data);
                     Trace.WriteLine($"RECEIVED:{data}");
                 }
