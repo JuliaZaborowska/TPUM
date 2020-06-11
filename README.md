@@ -3,11 +3,12 @@ Jakub Urbanski 234127
 Julia Zaborowska 234134
 
 # Project description
-Simple text based game that have archtecture splited onto separate layers which are:
-Data Layer
-Buissness Logic Layer
-Presentation Layer
-Game is developed on .NET platform using WPF presentation layer.
+Bookstore application based on archtecture splited onto separate layers which are: 
+* Data Layer Buissness 
+* Logic Layer 
+* Presentation Layer<br />
+
+Application is developed on .NET platform using WPF presentation layer.
 
 # Branch Naming Convention:
 * wip - Works in progress; stuff I know won't be finished soon
