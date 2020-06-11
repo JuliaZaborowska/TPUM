@@ -8,21 +8,23 @@ using LogicLayer.DataTransferObjects;
 using Newtonsoft.Json;
 using PresentationLayer.Commands;
 using PresentationLayer.Websockets;
+using PresentationLayer.Model;
 
 namespace PresentationLayer.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private ObservableCollection<UserDTO> _users;
-        private ObservableCollection<BookDTO> _books;
-        private ObservableCollection<DiscountCodeDTO> _discountCodes;
-        private ObservableCollection<BookDTO> _cart = new ObservableCollection<BookDTO>(){new BookDTO(){Author="Test", Price = 123, Publisher = "O'Dupa"}};
-        private DiscountCodeDTO _currentDiscountCode;
+        //private ObservableCollection<UserDTO> _users;
+        private ObservableCollection<UserModel> _users;
+        private ObservableCollection<BookModel> _books;
+        private ObservableCollection<DiscountCodeModel> _discountCodes;
+        private ObservableCollection<BookModel> _cart = new ObservableCollection<BookModel>(){new BookModel(){Author="Test", Price = 123, Publisher = "O'Duple"}};
+        private DiscountCodeModel _currentDiscountCode;
         private SocketConnection _connection;
 
         private WebsocketClient _websocketClient = new WebsocketClient("ws://localhost:9000/api");
 
-        public ObservableCollection<UserDTO> Users
+        public ObservableCollection<UserModel> Users
         {
             get => _users;
             set
@@ -32,7 +34,7 @@ namespace PresentationLayer.ViewModel
             }
         }
 
-        public ObservableCollection<BookDTO> Books
+        public ObservableCollection<BookModel> Books
         {
             get => _books;
             set
@@ -42,7 +44,7 @@ namespace PresentationLayer.ViewModel
             }
         }
 
-        public ObservableCollection<DiscountCodeDTO> DiscountCodes
+        public ObservableCollection<DiscountCodeModel> DiscountCodes
         {
             get => _discountCodes;
             set
@@ -51,7 +53,7 @@ namespace PresentationLayer.ViewModel
                 OnPropertyChanged();
             }
         } 
-        public ObservableCollection<BookDTO> Cart
+        public ObservableCollection<BookModel> Cart
         {
             get => _cart;
             set
@@ -61,7 +63,7 @@ namespace PresentationLayer.ViewModel
             }
         }
 
-        public DiscountCodeDTO CurrentDiscountCode
+        public DiscountCodeModel CurrentDiscountCode
         {
             get => _currentDiscountCode;
             set
@@ -116,19 +118,19 @@ namespace PresentationLayer.ViewModel
             switch (action)
             {
                 case EndpointAction.GET_BOOKS:
-                    List<BookDTO> bookArray = JsonConvert.DeserializeObject<List<BookDTO>>(message.Body);
-                    Books = new ObservableCollection<BookDTO>(bookArray);
+                    List<BookModel> bookArray = JsonConvert.DeserializeObject<List<BookModel>>(message.Body);
+                    Books = new ObservableCollection<BookModel>(bookArray);
                     break;
                 case EndpointAction.GET_USERS:
-                    List<UserDTO> userArray = JsonConvert.DeserializeObject<List<UserDTO>>(message.Body);
-                    Users = new ObservableCollection<UserDTO>(userArray);
-                    break;
+                    List<UserModel> userArray = JsonConvert.DeserializeObject<List<UserModel>>(message.Body);
+                    Users = new ObservableCollection<UserModel>(userArray);
+                     break;
                 case EndpointAction.GET_DISCOUNT_CODES:
-                    List<DiscountCodeDTO> discountArrays = JsonConvert.DeserializeObject<List<DiscountCodeDTO>>(message.Body);
-                    DiscountCodes = new ObservableCollection<DiscountCodeDTO>(discountArrays);
+                    List<DiscountCodeModel> discountArrays = JsonConvert.DeserializeObject<List<DiscountCodeModel>>(message.Body);
+                    DiscountCodes = new ObservableCollection<DiscountCodeModel>(discountArrays);
                     break;
                 case EndpointAction.PUBLISH_DISCOUNT_CODE:
-                    DiscountCodeDTO code = JsonConvert.DeserializeObject<DiscountCodeDTO>(message.Body);
+                    DiscountCodeModel code = JsonConvert.DeserializeObject<DiscountCodeModel>(message.Body);
                     CurrentDiscountCode = code;
                     break;
             }
