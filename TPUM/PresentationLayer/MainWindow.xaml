@@ -7,7 +7,11 @@
         xmlns:local="clr-namespace:PresentationLayer"
         xmlns:viewModel="clr-namespace:PresentationLayer.ViewModel"
         mc:Ignorable="d"
+<<<<<<< HEAD
         Title="MainWindow" Height="450" Width="800"
+=======
+        Title="MobileDevicesWebsocketCommunicatingApplicationSellingBooksAndBeingAmazing" Height="800" Width="1200"
+>>>>>>> develop
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -20,8 +24,17 @@
         <viewModel:MainViewModel />
     </Window.DataContext>
 
+<<<<<<< HEAD
     <Grid>
         <TabControl Background="#373533">
+=======
+    <Grid Background="#373533">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.Column="0" Grid.ColumnSpan="2"  Background="#373533">
+>>>>>>> develop
             <TabItem Header="Users">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -55,8 +68,18 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>
+<<<<<<< HEAD
                     <Button Grid.Row="1" HorizontalAlignment="Center" Width="200" Content="Fetch Users"
                             Command="{Binding FetchUsersCommand}" />
+=======
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <Button  HorizontalAlignment="Center" Width="300" Content="Initialize Connection"
+                                 Command="{Binding ConnectToWebsocketCommand}" />
+                    <StackPanel Width="30"></StackPanel>
+                        <Button HorizontalAlignment="Center" Width="300" Content="Get Users"
+                            Command="{Binding FetchUsersCommand}" />
+                    </StackPanel>
+>>>>>>> develop
                 </Grid>
             </TabItem>
             <TabItem Header="Books">
@@ -140,6 +163,7 @@
                                 <TextBlock FontSize="24" FontWeight="Bold" Foreground="MediumPurple" HorizontalAlignment="Center" Text="{Binding CurrentDiscountCode.Amount}"/>
                                 <TextBlock FontSize="24" FontWeight="Bold" Foreground="MediumPurple" HorizontalAlignment="Center" Text="%"/>
                             </StackPanel>
+<<<<<<< HEAD
                             
                         </StackPanel>
                 </ScrollViewer>
@@ -148,5 +172,26 @@
                 </Grid>
             </TabItem>
         </TabControl>
+=======
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <!-- <StackPanel Grid.Column="1" Background="#2a2827"> -->
+        <!--     <Label FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="WhiteSmoke">Cart:</Label> -->
+        <!--     <ListView ItemsSource="{Binding Cart}" > -->
+        <!--         <ListView.ItemTemplate> -->
+        <!--             <DataTemplate> -->
+        <!--                 <WrapPanel > -->
+        <!--                     <TextBlock Foreground="WhiteSmoke" Text="Author: " /> -->
+        <!--                     <TextBlock Foreground="WhiteSmoke" Text="{Binding Author}" FontWeight="Bold" /> -->
+        <!-- -->
+        <!--                 </WrapPanel> -->
+        <!--             </DataTemplate> -->
+        <!--         </ListView.ItemTemplate> -->
+        <!--     </ListView> -->
+        <!-- </StackPanel> -->
+>>>>>>> develop
     </Grid>
 </Window>

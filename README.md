@@ -3,10 +3,11 @@ Jakub Urbanski 234127
 Julia Zaborowska 234134
 
 # Project description
-Bookstore application based on archtecture splited onto separate layers which are:
-Data Layer
-Buissness Logic Layer
-Presentation Layer
+Bookstore application based on archtecture splited onto separate layers which are: 
+* Data Layer Buissness 
+* Logic Layer 
+* Presentation Layer<br />
+
 Application is developed on .NET platform using WPF presentation layer.
 
 # Branch Naming Convention:
