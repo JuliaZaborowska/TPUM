@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "TPUM\UnitTests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "TPUM\PresentationLayer\PresentationLayer.csproj", "{D342618E-7543-41CF-A50D-E8A5ED1D858A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsocketServer", "TPUM\WebsocketServer\WebsocketServer.csproj", "{BA93E609-512B-4FE7-9B8D-9414CD503643}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsocketServerPresentation", "TPUM\WebsocketServer\WebsocketServerPresentation.csproj", "{BA93E609-512B-4FE7-9B8D-9414CD503643}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsocketSerwerData", "WebsocketSerwerData\WebsocketSerwerData.csproj", "{C502998E-485D-463E-BB9F-16BCD0863ED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsocketServerData", "WebsocketSerwerData\WebsocketServerData.csproj", "{C502998E-485D-463E-BB9F-16BCD0863ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsocketServerLogic", "WebsocketServerLogic\WebsocketServerLogic.csproj", "{EEEF2CCC-1BCC-449C-BFAC-96A370BB2B9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{C502998E-485D-463E-BB9F-16BCD0863ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C502998E-485D-463E-BB9F-16BCD0863ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C502998E-485D-463E-BB9F-16BCD0863ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEEF2CCC-1BCC-449C-BFAC-96A370BB2B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEEF2CCC-1BCC-449C-BFAC-96A370BB2B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEEF2CCC-1BCC-449C-BFAC-96A370BB2B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEEF2CCC-1BCC-449C-BFAC-96A370BB2B9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

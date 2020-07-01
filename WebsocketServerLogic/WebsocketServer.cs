@@ -4,23 +4,20 @@ using System.Net;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 using LogicLayer.Services.HotShotPromotionService;
+using WebsocketServer;
 
-namespace WebsocketServer
+namespace WebsocketServerLogic
 {
-    public class WebsocketServer : IDisposable
+    class WebsocketServer : IDisposable
     {
-        private readonly Action<string> Log;
-        private HttpListener _listener;
-        private readonly string _address;
-        public List<WebSocketConnection> Connections = new List<WebSocketConnection>();
+        WebsocketSerwerData.Data data;
         private HotShotPromotionPublisher _promotionPublisher;
+        public List<WebSocketConnection> Connections = new List<WebSocketConnection>();
 
         public WebsocketServer(Action<string> log, string address)
         {
-            Log = log;
-            _address = address;
-            _listener = new HttpListener();
-            _listener.Prefixes.Add(address);
+            data = new WebsocketSerwerData.Data(log, new HttpListener(), address);
+            data.Listener.Prefixes.Add(address);
             _promotionPublisher = new HotShotPromotionPublisher(TimeSpan.FromSeconds(10));
             _promotionPublisher.Start();
         }
@@ -30,43 +27,44 @@ namespace WebsocketServer
 
             try
             {
-                _listener.Start();
+                data.Listener.Start();
 
-                Log($"Waiting for connections on {_address} ... ");
+                data.Log($"Waiting for connections on {data.Address} ... ");
 
-            
+
                 while (true)
                 {
-                    HttpListenerContext httpListenerContext = await _listener.GetContextAsync();
+                    HttpListenerContext httpListenerContext = await data.Listener.GetContextAsync();
 
                     if (httpListenerContext.Request.IsWebSocketRequest)
                     {
                         await InitializeConnection(httpListenerContext);
                     }
-         
+
                 }
             }
 
             catch (Exception e)
             {
-                Log(e.ToString());
+                data.Log(e.ToString());
             }
         }
+
         private async Task InitializeConnection(HttpListenerContext context)
         {
             try
             {
                 HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(subProtocol: null);
-                WebSocketConnection connection = new WebSocketConnection(webSocketContext.WebSocket, Log);
+                WebSocketConnection connection = new WebSocketConnection(webSocketContext.WebSocket, data.Log);
                 Connections.Add(connection);
                 SubscribeToPromotions(connection);
-                Log($"Maintaining {Connections.Count} active connections.");
+                data.Log($"Maintaining {Connections.Count} active connections.");
             }
             catch (Exception ex)
             {
                 context.Response.StatusCode = 500;
                 context.Response.Close();
-                Log($"Unable to establish connection: {ex.Message}.");
+                data.Log($"Unable to establish connection: {ex.Message}.");
             }
         }
 
@@ -78,7 +76,7 @@ namespace WebsocketServer
 
         public void Dispose()
         {
-           Connections.ForEach(connection => connection?.Dispose());
+            throw new NotImplementedException();
         }
     }
 }

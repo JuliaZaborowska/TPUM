@@ -7,23 +7,9 @@ namespace WebsocketServer
 
     class Program
     {
-        static async Task Main(string[] args)
+        //TODO to delete this class after migration
+        static public void Main(String[] args)
         {
-            try
-            {
-                using WebsocketServer websocketServer = new WebsocketServer(Log, "http://localhost:9000/api/");
-                await websocketServer.Listen();
-                Console.ReadKey();
-            }
-            catch (Exception e)
-            {
-                Log("Unexpected error");
-                Log(e.Message);
-            }
-
         }
-
-        private static readonly Action<string> Log = Console.WriteLine;
-
     }
 }
