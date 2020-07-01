@@ -9,8 +9,6 @@ namespace WebsocketServer
 {
     public class WebSocketConnection : IDisposable
     {
-
-
         public WebSocket Socket { get; }
         private Action<string> Log;
         private readonly RequestResolver _requestResolver;
