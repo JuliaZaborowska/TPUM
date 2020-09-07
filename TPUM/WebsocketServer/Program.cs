@@ -10,6 +10,7 @@ namespace WebsocketServer
         //TODO to delete this class after migration
         static public void Main(String[] args)
         {
+
         }
     }
 }

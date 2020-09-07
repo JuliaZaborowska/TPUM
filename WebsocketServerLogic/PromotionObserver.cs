@@ -27,12 +27,18 @@ namespace WebsocketServer
 
         public async void OnNext(PromotionEvent value)
         {
-            Console.WriteLine("Cyclic message:", value);
-            DiscountCodeDTO code = mapper.ToDiscountCodeDTO(value.DiscountCode);
-            string body = JsonConvert.SerializeObject(code);
-            Message message = new Message() { Action = EndpointAction.PUBLISH_DISCOUNT_CODE.GetString(), Type = "DiscountCodeDTO", Body = body };
+            Message message;
+
+            lock (value)
+            {
+                Console.WriteLine("Cyclic message:", value);
+                DiscountCodeDTO code = mapper.ToDiscountCodeDTO(value.DiscountCode);
+                string body = JsonConvert.SerializeObject(code);
+                message = new Message() { Action = EndpointAction.PUBLISH_DISCOUNT_CODE.GetString(), Type = "DiscountCodeDTO", Body = body };
+            }
             Console.WriteLine($"Promotion: {message}");
             await _connection.SendAsync(JsonConvert.SerializeObject(message));
+            
         }
     }
 }

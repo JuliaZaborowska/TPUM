@@ -16,8 +16,11 @@ namespace WebsocketServerLogic
 
         public WebsocketServer(Action<string> log, string address)
         {
-            data = new WebsocketSerwerData.Data(log, new HttpListener(), address);
-            data.Listener.Prefixes.Add(address);
+            lock (data)
+            {
+                data = new WebsocketSerwerData.Data(log, new HttpListener(), address);
+                data.Listener.Prefixes.Add(address);
+            }
             _promotionPublisher = new HotShotPromotionPublisher(TimeSpan.FromSeconds(10));
             _promotionPublisher.Start();
         }
